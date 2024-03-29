@@ -1,43 +1,43 @@
 
-let rezultati = document.createElement("section");
+let results = document.createElement("section");
 
-rezultati.style.display = "none";
-let rezForma = document.createElement("form");
-let rezArticle = document.createElement("article")
-let rezNaslov = document.createElement("h1");
-let btnIgrajPon= document.createElement("input");
-rezNaslov.innerHTML = "ODGOVORI";
-rezNaslov.classList.add("rezNaslov")
-btnIgrajPon.type = "submit";
-btnIgrajPon.value = "IGRAJ PONOVO";
-rezArticle.append(rezNaslov);
-document.body.append(rezultati);
-rezForma.append(rezArticle, btnIgrajPon);
-rezultati.append(rezForma);
+results.style.display = "none";
+let resForm = document.createElement("form");
+let resArticle = document.createElement("article")
+let resTitle = document.createElement("h1");
+let btnPlayAgain= document.createElement("input");
+resTitle.innerHTML = "ODGOVORI";
+resTitle.classList.add("resTitle")
+btnPlayAgain.type = "submit";
+btnPlayAgain.value = "IGRAJ PONOVO";
+resArticle.append(resTitle);
+document.body.append(results);
+resForm.append(resArticle, btnPlayAgain);
+results.append(resForm);
 
-let forma = document.createElement("form");
-let brPitanja = document.createElement("h2");
-let slika = document.createElement("img");
-let tekst = document.createElement("p");
-forma.append(brPitanja, slika, tekst);
-let odgovorii = [];
+let form = document.createElement("form");
+let numOfQuestion = document.createElement("h2");
+let image = document.createElement("img");
+let text = document.createElement("p");
+form.append(numOfQuestion, image, text);
+let answers = [];
 let radios = [];
 //////////////////////
-// kreiram odgovore na pitanje
-let brojOdgovora = pitanja[0].odgovori.length;
-for(let i=0; i< brojOdgovora; i++) {
+// I create answers to the question
+let numOfResponses = questions[0].answers_.length;
+for(let i=0; i< numOfResponses; i++) {
     let radio = document.createElement("input");
     radio.type = "radio";
     radio.id = `${i}`;
-    radio.name = "odgovori"
+    radio.name = "answers_"
     let label = document.createElement("label");
     label.setAttribute("for", `${i}`)
     let div = document.createElement("div");
     div.append(radio, label);
-    odgovorii.push(label);
-    forma.append(div);
+    answers.push(label);
+    form.append(div);
    if(i==0){
-       radio.checked = true; // postavlja prvi radio button za prvo pitanje čekirano 
+       radio.checked = true; // sets the first radio button checked for the first question 
        radio.parentNode.style.background = "#C9FFFF";
    }
     
@@ -45,36 +45,36 @@ for(let i=0; i< brojOdgovora; i++) {
 //////////////////////////////////////
 
 ////////////////////////////////////
-// saznaj koji odgovor je odabran
-let radioOdgovori = document.getElementsByName("odgovori");
+// find out which answer was chosen
+let radioResponses = document.getElementsByName("answers_");
 
 ///////////////////////////////////////
 
-let sledecePitanje = document.createElement("input");
-sledecePitanje.type = "submit"
-sledecePitanje.value = "SLEDEĆE PITANJE"
+let nextQuestion = document.createElement("input");
+nextQuestion.type = "submit"
+nextQuestion.value = "SLEDEĆE PITANJE"
 
-let posalji = document.createElement("input");
-posalji.type = "submit";
-posalji.value = "POŠALJI"
-posalji.style.display = "none";
-
-
-let igrajPonovo = document.createElement("button");
-igrajPonovo.innerHTML = " IGRAJ PONOVO"
-igrajPonovo.style.display = "none";
+let send = document.createElement("input");
+send.type = "submit";
+send.value = "POŠALJI"
+send.style.display = "none";
 
 
-forma.append(sledecePitanje, posalji, igrajPonovo)
+let playAgain = document.createElement("button");
+playAgain.innerHTML = " IGRAJ PONOVO"
+playAgain.style.display = "none";
 
 
+form.append(nextQuestion, send, playAgain)
 
 
 
 
 
 
-permutacija(pitanja);
+
+
+permutation(questions);
 
 
 
@@ -88,67 +88,67 @@ bgdImage.classList.add("bgdImage");
 document.body.append(bgdImage);
 
 
-// setovanje prvog pitanja
+// setting the first question
 ///////////////////////////////
-brPitanja.innerHTML = `pitanje 1/5`;
-slika.src = `${pitanja[0].img}`;
-tekst.innerHTML = `${pitanja[0].tekst}`; 
-bgdImage.src = `${pitanja[0].background}`;
-  for(let i = 0; i< odgovorii.length; i++) {
-    odgovorii[i].innerHTML = `${pitanja[0].odgovori[i]}`
-    console.log(odgovorii[i].innerHTML);
+numOfQuestion.innerHTML = `pitanje 1/5`;
+image.src = `${questions[0].img}`;
+text.innerHTML = `${questions[0].text}`; 
+bgdImage.src = `${questions[0].background}`;
+  for(let i = 0; i< answers.length; i++) {
+    answers[i].innerHTML = `${questions[0].answers_[i]}`
+    
 } 
 
 
 //////////////////////////////////////////////
 
-document.body.append(forma);
-console.log(forma);
+document.body.append(form);
 
 
-// prikazivanje sledeceg pitanja
+
+// displaying the next question
 ///////////////////////////////////
-let odgovori = [];
-let brojac = 0;
+let answers_ = [];
+let counter = 0;
 let prevent = function (e){
     e.preventDefault();
 }
-function sledeceP (e) {
+function next_question (e) {
     /* e.preventDefault(); */
-   /*  if(brojac >5) {
-        brojac = 0;
+   /*  if(counter >5) {
+        counter = 0;
     } */
-    brojac++;
+    counter++;
 
 
-    if(brojac <=4){
+    if(counter <=4){
         
-        brPitanja.innerHTML = `pitanje ${brojac + 1} / 5`;
-       slika.src = `${pitanja[brojac].img}`;
-       tekst.innerHTML = `${pitanja[brojac].tekst}`;
-       bgdImage.src = `${pitanja[brojac].background}`;
+        numOfQuestion.innerHTML = `pitanje ${counter + 1} / 5`;
+       image.src = `${questions[counter].img}`;
+       text.innerHTML = `${questions[counter].text}`;
+       bgdImage.src = `${questions[counter].background}`;
        
-       for(let j = 0; j< odgovorii.length; j++) {
-        odgovorii[j].innerHTML = `${pitanja[brojac].odgovori[j]}`;
+       for(let j = 0; j< answers.length; j++) {
+        answers[j].innerHTML = `${questions[counter].answers_[j]}`;
     }    
     }
-    if(brojac <6){
+    if(counter <6){
         prevent(e);
     }
-    if(brojac ==4)  {
-        sledecePitanje.value = "POŠALJI";   
-        sledecePitanje.addEventListener("click", prikaziRez);
+    if(counter ==4)  {
+        nextQuestion.value = "POŠALJI";   
+        nextQuestion.addEventListener("click", displayRes);
         
     }
  
     /*  e.preventDefault(); */
     
-    let tacanOdgovor = pitanja[brojac -1].indexKorektnogOdgovora;
-    for(let i=0;i<radioOdgovori.length; i++) {
-        if(radioOdgovori[i].checked == true) {
-           /*  radioOdgovori[i].classList.add(checkedAnswer); */
-            radioOdgovori[i].id == tacanOdgovor ? odgovori.push(true) :  odgovori.push(false);
-        console.log(odgovori);
+    let correctAnswer = questions[counter -1].indexCorrectAnswer;
+    for(let i=0;i<radioResponses.length; i++) {
+        if(radioResponses[i].checked == true) {
+           /*  radioResponses[i].classList.add(checkedAnswer); */
+            radioResponses[i].id == correctAnswer ? answers_.push(true) :  answers_.push(false);
+        console.log(answers_);
     }
     
     
@@ -157,121 +157,118 @@ function sledeceP (e) {
 
 
 
-for(let i=0;i<radioOdgovori.length; i++) {
-    radioOdgovori[i].checked = false;
-    radioOdgovori[0].checked = true; // postavlja prvi radio button sa svako pitanje čekiran sem za prvo pitanje
+for(let i=0;i<radioResponses.length; i++) {
+    radioResponses[i].checked = false;
+    radioResponses[0].checked = true; // sets the first radio button checked except for the first question
    }
         
-        /* console.log(radioOdgovori[i]); */
+        /* console.log(radioResponses[i]); */
     
 
-     /* for(let i=0;i<radioOdgovori.length; i++) {
-        radioOdgovori[i].checked = false;
+     /* for(let i=0;i<radioResponses.length; i++) {
+        radioResponses[i].checked = false;
         console.log("radi");
        } */
        
 }
 
 window.addEventListener("click", ()=>{
-    for(let i=0;i<radioOdgovori.length; i++) {
-        if(radioOdgovori[i].checked == true) {
+    for(let i=0;i<radioResponses.length; i++) {
+        if(radioResponses[i].checked == true) {
             
-            if(pitanja[brojac].img == "fotografije/10.png" || pitanja[brojac].img == "fotografije/11.png"|| pitanja[brojac].img == "fotografije/12.png" || pitanja[brojac].img == "fotografije/13.png"){
+            if(questions[counter].img == "photos/10.png" || questions[counter].img == "photos/11.png"|| questions[counter].img == "photos/12.png" || questions[counter].img == "photos/13.png"){
                 
-                if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "narandžasta"){
-                   radioOdgovori[i].parentNode.style.background = "#FF9330";
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "ljubičasta"){
-                    radioOdgovori[i].parentNode.style.background = `#8513C3`;
-                    radioOdgovori[i].nextSibling.style.color = "white";
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "zelena"){
-                    radioOdgovori[i].parentNode.style.background = `#52DC70`
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "roze"){
-                    radioOdgovori[i].parentNode.style.background = `#FF6EB4`
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "plava"){
-                    radioOdgovori[i].parentNode.style.background = `#142BF9`;
-                    radioOdgovori[i].nextSibling.style.color = "white";
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "braon"){
-                    radioOdgovori[i].parentNode.style.background = `#7E441A`;
-                    radioOdgovori[i].nextSibling.style.color = "white";
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "siva"){
-                    radioOdgovori[i].parentNode.style.background = `#C3C3C3`
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "crna"){
-                    radioOdgovori[i].parentNode.style.background = `#000000`;
-                    radioOdgovori[i].nextSibling.style.color = "white";
-                }else if(pitanja[brojac].odgovori[radioOdgovori[i].id] == "maslinasta"){
-                    radioOdgovori[i].parentNode.style.background = `#96AC68`
+                if(questions[counter].answers_[radioResponses[i].id] == "narandžasta"){
+                   radioResponses[i].parentNode.style.background = "#FF9330";
+                }else if(questions[counter].answers_[radioResponses[i].id] == "ljubičasta"){
+                    radioResponses[i].parentNode.style.background = `#8513C3`;
+                    radioResponses[i].nextSibling.style.color = "white";
+                }else if(questions[counter].answers_[radioResponses[i].id] == "zelena"){
+                    radioResponses[i].parentNode.style.background = `#52DC70`
+                }else if(questions[counter].answers_[radioResponses[i].id] == "roze"){
+                    radioResponses[i].parentNode.style.background = `#FF6EB4`
+                }else if(questions[counter].answers_[radioResponses[i].id] == "plava"){
+                    radioResponses[i].parentNode.style.background = `#142BF9`;
+                    radioResponses[i].nextSibling.style.color = "white";
+                }else if(questions[counter].answers_[radioResponses[i].id] == "braon"){
+                    radioResponses[i].parentNode.style.background = `#7E441A`;
+                    radioResponses[i].nextSibling.style.color = "white";
+                }else if(questions[counter].answers_[radioResponses[i].id] == "siva"){
+                    radioResponses[i].parentNode.style.background = `#C3C3C3`
+                }else if(questions[counter].answers_[radioResponses[i].id] == "crna"){
+                    radioResponses[i].parentNode.style.background = `#000000`;
+                    radioResponses[i].nextSibling.style.color = "white";
+                }else if(questions[counter].answers_[radioResponses[i].id] == "maslinasta"){
+                    radioResponses[i].parentNode.style.background = `#96AC68`
                 }
             } else{
-                radioOdgovori[i].parentNode.style.background = `#C9FFFF`
+                radioResponses[i].parentNode.style.background = `#C9FFFF`
                 
             }        
             
         }else{
-            radioOdgovori[i].parentNode.style.background = "none";
-            radioOdgovori[i].nextSibling.style.color = "black";
+            radioResponses[i].parentNode.style.background = "none";
+            radioResponses[i].nextSibling.style.color = "black";
         }
     }
 });
 
 
-sledecePitanje.addEventListener("click", sledeceP);
+nextQuestion.addEventListener("click", next_question);
 
 /////////////////////////////////////////////////////////////
 
 for(let i=0; i < 5; i++){
-    let odg = document.createElement("div");
+    let answer = document.createElement("div");
     let p = document.createElement("p");
     p.innerHTML = "radiiiiii"
     let img = document.createElement("img");
-    odg.append(p,img);
-    rezArticle.append(odg);
-    console.log(":nessssstooooooo");
-
+    answer.append(p,img);
+    resArticle.append(answer);
 }
 
 
 
 
-// nazalost nisam stigao da zavrsim zadatak 
-//dizajn mi je odneo puno vremena i na kraju nije ostalo vremena za funkcionalnosti
 
-function prikaziRez() {
-         /* forma.innerHTML = ""; */
-         /* forma.append(rezultati) */
+
+function displayRes() {
+         /* form.innerHTML = ""; */
+         /* form.append(rezultati) */
          /* rezultati.style.display = "flex"; */
-         let paragrafi = rezultati.querySelectorAll("p");
-         let images = rezultati.querySelectorAll("img");
-         for(let i = 0; i< odgovori.length; i++){
-             paragrafi[i].innerHTML = `pitanje ${i+1}`;
-             images[i].src = `fotografije/${odgovori[i]}.png`;
+         let paragraphs = results.querySelectorAll("p");
+         let images = results.querySelectorAll("img");
+         for(let i = 0; i< answers_.length; i++){
+             paragraphs[i].innerHTML = `pitanje ${i+1}`;
+             images[i].src = `photos/${answers_[i]}.png`;
          }
-         let inputi = forma.querySelectorAll("input");
-         inputi.forEach(el=>{
+         let inputs = form.querySelectorAll("input");
+         inputs.forEach(el=>{
             el.disabled = true;
          })
-        forma.style.display = "none";
-        rezultati.style.display = "flex";
+        form.style.display = "none";
+        results.style.display = "flex";
         
-        for(let i = 0; i<odgovori.length; i++){
+        for(let i = 0; i<answers_.length; i++){
              
         }
         
-        bgdImage.src = `fotografije/background_rezultati.png`;
+        bgdImage.src = `photos/background_results.png`;
         document.getElementsByClassName("bgdImage")[0].style.opacity = "1";
         
 }
 
-function permutacija (niz) {
-  for(let i = niz.length-1; i >= 0; i--){
-    let pitanje = Math.floor(Math.random() * (i +1));
-    let pitanje2 = niz[i];
-    niz[i] = niz[pitanje];
-    niz[pitanje] = pitanje2;
+function permutation (arr) {
+  for(let i = arr.length-1; i >= 0; i--){
+    let question = Math.floor(Math.random() * (i +1));
+    let question2 = arr[i];
+    arr[i] = arr[question];
+    arr[question] = question2;
   }
-  return niz;
+  return arr;
 }
 
-btnIgrajPon.addEventListener("click", ()=>{
-    console.log(brojac);
-    permutacija(pitanja);
+btnPlayAgain.addEventListener("click", ()=>{
+    console.log(counter);
+    permutation(questions);
 })
